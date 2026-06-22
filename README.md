@@ -33,7 +33,7 @@
 
 ### 🛠 Tech Stack
 
-- **Backend:** PHP 8.3, Laravel 11.x
+- **Backend:** PHP 8.3, Laravel 11
 - **Frontend:** React 18, Inertia.js, Lucide Icons
 - **Styling:** Tailwind CSS, PostCSS, Vite
 - **Database:** SQLite (default) / MySQL / PostgreSQL
