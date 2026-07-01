@@ -1,167 +1,116 @@
-<p align="center">
-  <h1 align="center">🚀 Exogit App</h1>
-  <p align="center">
-    A modern, lightweight invoicing and commercial management application.
-    <br />
-    <br />
-    <a href="https://github.com/yourusername/exogit-app/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/yourusername/exogit-app/issues">Request Feature</a>
-  </p>
-</p>
+# 🚀 ExoGit - Commercial Management Application
 
-<!-- BADGES -->
-<p align="center">
-  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel" />
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Inertia.js-9553E9?style=for-the-badge&logo=inertia&logoColor=white" alt="Inertia.js" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
-</p>
+![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Inertia.js](https://img.shields.io/badge/inertia.js-%239553E9.svg?style=for-the-badge&logo=inertia&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-%2300000f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-## 📖 About The Project
+## 📖 About
 
-**Exogit** is a robust application designed to streamline your business operations. Built for efficiency, it helps businesses seamlessly manage clients, products, quotations, invoices, and suppliers through a clean, responsive, and dark-mode-ready interface.
+ExoGit is a robust, enterprise-ready commercial management application designed to streamline business operations. Built on a modern technology stack leveraging the power of **Laravel 11**, the reactivity of **React**, and the seamless integration of **Inertia.js**. 
 
-### ✨ Key Features
+This application is now **fully containerized** with **Docker**, ensuring a consistent and reliable environment across development, testing, and production. The Docker setup orchestrates all necessary services, including the web server, PHP runtime, and MySQL database, allowing you to get up and running in minutes with zero local configuration overhead.
 
-- 👥 **Commercial Management**: Full CRUD operations for Clients, Products, *Devis* (Quotations), *Factures* (Invoices), Suppliers, and *Achats* (Purchases).
-- 📄 **PDF Generation**: Seamless PDF export for quotations and invoices using `laravel-dompdf`.
-- 🌓 **Modern UI/UX**: Unified authentication layouts with built-in support for both Light and Dark modes.
-- 🔒 **Role-Based Access**: Secure administrative dashboard equipped with middleware protection.
-- 📱 **Responsive Design**: Flawless experience across all devices, from mobile to desktop, powered by Tailwind CSS.
+## 🚀 Quick Start (Recommended)
 
-### 🛠 Tech Stack
-
-- **Backend:** PHP 8.3, Laravel 11.x
-- **Frontend:** React 18, Inertia.js, Lucide Icons
-- **Styling:** Tailwind CSS, PostCSS, Vite
-- **Database:** SQLite (default) / MySQL / PostgreSQL
-- **Key Packages:** `barryvdh/laravel-dompdf`, `laravel/sanctum`, `tightenco/ziggy`
-
----
-
-## 🚀 Getting Started
-
-To get a local copy up and running, follow these simple steps.
+The easiest and fastest way to run this application is using our optimized Docker environment. 
 
 ### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running.
+- [Git](https://git-scm.com/) installed.
 
-Ensure you have the following installed on your local machine:
-- [PHP >= 8.3](https://www.php.net/downloads)
-- [Composer](https://getcomposer.org/)
-- [Node.js & npm](https://nodejs.org/en/download/)
-
-### Installation
+### Steps
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/exogit-app.git
-   cd exogit-app
+   git clone https://github.com/whoami-hob/ExoGit.git
+   cd ExoGit
    ```
 
-2. **Install PHP dependencies**
+2. **Environment Configuration**
+   Copy the example environment file and configure your credentials if necessary. The default Docker variables are usually sufficient for local development.
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Spin up the Docker Containers**
+   Launch the application stack in detached mode:
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Install Dependencies & Initialize Database**
+   Run the following commands inside the app container (adjust 'app' if your container name is different) to install PHP/Node dependencies, generate the application key, and run migrations:
+   ```bash
+   docker compose exec app composer install
+   docker compose exec app npm install
+   docker compose exec app npm run build
+   docker compose exec app php artisan key:generate
+   docker compose exec app php artisan migrate --seed
+   ```
+
+5. **Access the Application**
+   Open your browser and navigate to: `http://localhost`
+
+---
+
+## 🛠 Manual Setup (Fallback)
+
+If you prefer not to use Docker, you can set up the application manually on your host machine.
+
+### Prerequisites
+- PHP 8.2+
+- Composer
+- Node.js & npm
+- MySQL Server
+
+### Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/whoami-hob/ExoGit.git
+   cd ExoGit
+   ```
+
+2. **Install PHP Dependencies**
    ```bash
    composer install
    ```
 
-3. **Install NPM packages**
+3. **Install NPM Dependencies & Build Assets**
    ```bash
    npm install
+   npm run build
    ```
 
 4. **Environment Setup**
-   Copy the example environment file and generate an application key:
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
+   *Note: Ensure you update the `.env` file with your local MySQL database credentials.*
 
-5. **Storage Link**
-   Required for PDF generation and file handling:
+5. **Database Migration**
    ```bash
-   php artisan storage:link
+   php artisan migrate --seed
    ```
 
-6. **Database & Mail Configuration**
-   - Configure your `DB_CONNECTION` in `.env` (SQLite is default).
-   - Configure `MAIL_MAILER` and credentials (e.g., Mailtrap) for password recovery emails.
-   - Run database migrations:
-     ```bash
-     php artisan migrate
-     ```
+6. **Serve the Application**
+   ```bash
+   php artisan serve
+   ```
+   Visit `http://localhost:8000` in your browser.
 
----
+## 🏗 Architecture & Stack
 
-## 💻 Development
+- **Backend:** Laravel 11
+- **Frontend:** React with Inertia.js
+- **Styling:** Tailwind CSS
+- **Database:** MySQL
+- **Infrastructure:** Docker & Docker Compose
 
-Exogit uses Vite to bundle the frontend assets and Laravel's built-in server for the backend. 
+## 📄 License
 
-To start the development environment efficiently, you can use the predefined composer script:
-
-```bash
-composer run dev
-```
-
-*(This command uses concurrently to run the Laravel server, Vite, and other background processes simultaneously).*
-
-Alternatively, you can run them manually in separate terminals:
-
-```bash
-# Terminal 1: Start Vite
-npm run dev
-
-# Terminal 2: Start Laravel Server
-php artisan serve
-```
-
----
-
-## 📂 Project Layout
-
-- `app/Http/Controllers/`: Manages all application business logic.
-- `resources/js/Pages/`: React components for pages (Inertia routes).
-- `resources/js/Layouts/`: Shared layouts (`AuthLayout`, `AuthenticatedLayout`).
-- `routes/web.php`: Defines all application routes and middleware.
-- `database/migrations/`: Database schema definitions.
-
----
-
-## 💡 Useful Commands
-
-- **Update database schema:**
-  ```bash
-  php artisan migrate
-  ```
-- **Populate database with dummy data:**
-  ```bash
-  php artisan db:seed
-  ```
-- **Run test suite:**
-  ```bash
-  php artisan test
-  ```
-- **Compile assets for production:**
-  ```bash
-  npm run build
-  ```
-
----
-
-## 🤝 Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-*Please follow PSR-12 coding standards and ensure all tests pass before submitting.*
-
----
-
-## 📝 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
